@@ -19,6 +19,7 @@ const HomePage = () => {
     // States
     const [posts, setPosts] = useState<Post[] | []>([]);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         getPosts();
@@ -26,6 +27,7 @@ const HomePage = () => {
 
     const getPosts = async () => {
         try {
+            setLoading(true)
             const res = await fetch("https://forjupad-frontend-moment-3-api.onrender.com/posts/recent");
 
             if(!res.ok) {
@@ -34,8 +36,11 @@ const HomePage = () => {
             const data = await res.json();
 
             setPosts(data);
+            setLoading(false);
         } catch (error) {
             setError("Något gick fel vid hämtning av inlägg");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -47,7 +52,10 @@ const HomePage = () => {
                 error && <p>{error}</p>
             }
             {
-                posts.length > 0 ? 
+                loading && <p>Laddar inlägg...</p>
+            }
+            {
+                posts.length > 0 && 
                     posts.map((post) => {
                         const contentPreview = post.content.split(" ").slice(0, 30).join(" ") + (post.content.split(" ").length > 30 ? "..." : "");
 
@@ -68,7 +76,6 @@ const HomePage = () => {
                             </article>
                         );
                     })
-                : <p>Det finns för närvarande inga inlägg</p>
             }   
             </div>
             

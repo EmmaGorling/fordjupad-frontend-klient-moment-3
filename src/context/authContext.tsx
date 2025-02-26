@@ -19,7 +19,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(credentials)
+                body: JSON.stringify(credentials),
+                credentials: "include"
             });
 
             if(!res.ok) throw new Error("Inloggning misslyckades");
