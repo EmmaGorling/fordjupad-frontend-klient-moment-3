@@ -1,8 +1,79 @@
-import React from 'react'
+import { useEffect, useState } from "react"
+
+interface Author {
+    _id: string,
+    firstName: string, 
+    lastName: string
+}
+
+interface Post {
+    _id: string,
+    title: string,
+    content: string,
+    author: Author,
+    createdAt: Date,
+    updatedAt: Date | null
+}
 
 const HomePage = () => {
+    // States
+    const [posts, setPosts] = useState<Post[] | []>([]);
+    const [error, setError] = useState("");
+
+    useEffect(() => {
+        getPosts();
+    }, [])
+
+    const getPosts = async () => {
+        try {
+            const res = await fetch("https://forjupad-frontend-moment-3-api.onrender.com/posts/recent");
+
+            if(!res.ok) {
+                setError("Något gick fel vid hämtning av inläggen");
+            }
+            const data = await res.json();
+
+            setPosts(data);
+        } catch (error) {
+            setError("Något gick fel vid hämtning av inlägg");
+        }
+    }
+
     return (
-        <div>HomePage</div>
+        <>
+            <h2>Senaste blogginläggen</h2>
+            <div>
+            {
+                error && <p>{error}</p>
+            }
+            {
+                posts.length > 0 ? 
+                    posts.map((post) => {
+                        const contentPreview = post.content.split(" ").slice(0, 30).join(" ") + (post.content.split(" ").length > 30 ? "..." : "");
+
+                        return (
+                            <article key={post._id}>
+                                <h3>{post.title}</h3>
+                                <p>{contentPreview}</p> {/* Begränsad text */}
+                                <span>
+                                    {new Date(post.createdAt).toLocaleString('sv-SE', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                </span>
+                                <span>{post.author.firstName} {post.author.lastName}</span>
+                            </article>
+                        );
+                    })
+                : <p>Det finns för närvarande inga inlägg</p>
+            }   
+            </div>
+            
+        </>
+        
     )
 }
 
