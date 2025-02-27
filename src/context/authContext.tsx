@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, ReactNode } from "react";
+import { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import { User, LoginCredentials, AuthResponse, AuthContextType} from '../types/auth.types'
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -12,6 +12,32 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
 
     const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = localStorage.getItem('token');
+            if(!token) return;
+
+            try {
+                const res = await fetch(`${apiUrl}/users/validate`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                if(!res.ok) {
+                    logout();
+                } else {
+                    const data = await res.json();
+                    setUser(data)
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        checkToken();
+    }, []);
 
     const login = async (credentials: LoginCredentials) => {
         try {
@@ -40,6 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
         setUser(null);
         localStorage.removeItem('token')
     }
+
 
     return (
         <AuthContext.Provider value={{user, login, logout}}>

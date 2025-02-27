@@ -10,15 +10,17 @@ const PostPage = () => {
     const { user } = useAuth();
     const [post, setPost] = useState<Post| null>(null);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         getPost()
-    }), [];
+    }, []);
 
 
     const getPost = async () => {
         try {
+            setLoading(true);
             const res = await fetch(`${apiUrl}/posts/${id}`);
 
             if(!res.ok) throw error;
@@ -26,19 +28,26 @@ const PostPage = () => {
             const data = await res.json();
 
             setPost(data);
+            setLoading(false);
         } catch (error) {
             setError("Kunde inte hämta inlägget");
+        } finally {
+            setLoading(false);
         }
     } 
     const handleEdit = () => {
-        navigate(`/edit/$id`);
+        navigate(`/edit/${id}`);
     }
 
+    
 
     return (
         <div>
             {
                 error && <p>{error}</p>
+            }
+            {
+                loading && <p>Laddar...</p>
             }
             {
                 post && (
