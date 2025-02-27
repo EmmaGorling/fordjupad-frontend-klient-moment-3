@@ -1,19 +1,6 @@
 import { useEffect, useState } from "react"
-
-interface Author {
-    _id: string,
-    firstName: string, 
-    lastName: string
-}
-
-interface Post {
-    _id: string,
-    title: string,
-    content: string,
-    author: Author,
-    createdAt: Date,
-    updatedAt: Date | null
-}
+import { Link } from "react-router-dom";
+import { Post } from '../types/post.types';
 
 const HomePage = () => {
     // States
@@ -60,20 +47,21 @@ const HomePage = () => {
                         const contentPreview = post.content.split(" ").slice(0, 30).join(" ") + (post.content.split(" ").length > 30 ? "..." : "");
 
                         return (
-                            <article key={post._id}>
-                                <h3>{post.title}</h3>
-                                <p>{contentPreview}</p> {/* Begränsad text */}
-                                <span>
-                                    {new Date(post.createdAt).toLocaleString('sv-SE', {
-                                        year: 'numeric',
-                                        month: '2-digit',
-                                        day: '2-digit',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                    })}
-                                </span>
-                                <span>{post.author.firstName} {post.author.lastName}</span>
-                            </article>
+                            <Link to={`/post/${post._id}`} >
+                                <article key={post._id}>
+                                    <h3>{post.title}</h3>
+                                    <p>{contentPreview}</p> {/* Begränsad text */}
+                                    <span>
+                                        {new Date(post.createdAt).toLocaleString('sv-SE', {
+                                            year: 'numeric',
+                                            month: '2-digit',
+                                            day: '2-digit',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                        })}
+                                    </span>
+                                </article>
+                            </Link>
                         );
                     })
             }   

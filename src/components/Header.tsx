@@ -11,12 +11,7 @@ const Header = () => {
         <header>
             <h1>Bloggy</h1>
             <ul>
-                {
-                    !user && <li><NavLink to="/">Start</NavLink></li>
-                }
-                {
-                    user && <li>Min blogg</li>
-                }
+                <li><NavLink to="/">Start</NavLink></li>
                 {
                     user && <li><NavLink to="/createpost">Skapa inlägg</NavLink></li>
                 }

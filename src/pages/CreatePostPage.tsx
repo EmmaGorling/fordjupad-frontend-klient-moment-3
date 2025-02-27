@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
 const CreatePostPage = () => {
@@ -16,11 +16,13 @@ const CreatePostPage = () => {
 
         try {
             const post = {title, content}
-            const res = await fetch("https://forjupad-frontend-moment-3-api.onrender.com/posts", {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${apiUrl}/posts`, {
                 method: 'POST',
                 credentials: "include",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
                 },
                 body: JSON.stringify(post)
             });
@@ -28,7 +30,9 @@ const CreatePostPage = () => {
             if(!res.ok) {
                 throw error;
             } else {
-                setSuccess("Ditt inlägg har sparats!")
+                setSuccess("Ditt inlägg har sparats!");
+                setTitle("");
+                setContent("");
                 setError("");
             }
 
