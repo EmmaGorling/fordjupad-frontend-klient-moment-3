@@ -1,0 +1,23 @@
+@use '../variables';
+
+h4 {
+    margin: 0.4em 0;
+}
+a {
+    color: variables.$primary-text;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+h3 {
+    text-decoration: underline;
+}
+
+@media (min-width:900px) {
+    .archive-container {
+        padding-left: 2em;
+        border-left: 1px solid variables.$primary-text;
+    }
+
+}

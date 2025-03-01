@@ -1,0 +1,15 @@
+.two-sections {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+@media (min-width:900px) {
+    .two-sections {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+
+}

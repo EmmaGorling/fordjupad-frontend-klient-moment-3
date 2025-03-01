@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Post } from '../types/post.types'
 const apiUrl = import.meta.env.VITE_API_URL
+import './RecentPosts.scss'
 
 const RecentPosts = () => {
     // States
@@ -34,26 +35,27 @@ const RecentPosts = () => {
 
 
     return (
-        <div>
-            <h2>Senaste blogginläggen</h2>
-            <div>
-            {
-                error && <p>{error}</p>
-            }
-            {
-                loading && <p>Laddar inlägg...</p>
-            }
-            {
-                posts.length > 0 && 
-                    posts.map((post) => {
-                        const contentPreview = post.content.split(" ").slice(0, 30).join(" ") + (post.content.split(" ").length > 30 ? "..." : "");
+        <div className='recent'>
+        {
+            error && <p className='errorMsg'>{error}</p>
+        }
+        {
+            loading && <p className='loading'>Laddar inlägg...</p>
+        }
+        {
+            posts.length > 0 && 
+                posts.map((post) => {
+                    const contentPreview = post.content.split(" ").slice(0, 30).join(" ") + (post.content.split(" ").length > 30 ? "..." : "");
 
-                        return (
-                            <Link to={`/post/${post._id}`}  key={post._id} >
-                                <article>
-                                    <h3>{post.title}</h3>
-                                    <p>{contentPreview}</p> {/* Begränsad text */}
-                                    <span>
+                    return (
+                        <Link to={`/post/${post._id}`}  key={post._id} >
+                            <article>
+                                <h3>{post.title}</h3>
+                                <p>{contentPreview}</p> {/* Begränsad text */}
+                                <div className='date-container'>
+                                    <span className='published'>
+                                        Publicerad: 
+                                        <span className='date'>
                                         {new Date(post.createdAt).toLocaleString('sv-SE', {
                                             year: 'numeric',
                                             month: '2-digit',
@@ -61,26 +63,29 @@ const RecentPosts = () => {
                                             hour: '2-digit',
                                             minute: '2-digit',
                                         })}
+                                        </span>
                                     </span>
                                     {
                                         post.updatedAt && 
-                                            <span>
+                                            <span className='updated'>
                                                 Uppdaterad:
-                                                {new Date(post.createdAt).toLocaleString('sv-SE', {
+                                                <span className='date'>
+                                                {new Date(post.updatedAt).toLocaleString('sv-SE', {
                                                     year: 'numeric',
                                                     month: '2-digit',
                                                     day: '2-digit',
                                                     hour: '2-digit',
                                                     minute: '2-digit',
                                                 })}
+                                                </span>
                                             </span>
                                     }
-                                </article>
-                            </Link>
-                        );
-                    })
-            }   
-            </div>
+                                </div>
+                            </article>
+                        </Link>
+                    );
+                })
+        }   
         </div>
     )
 }

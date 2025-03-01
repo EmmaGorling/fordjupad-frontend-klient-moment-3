@@ -1,0 +1,63 @@
+@use '../variables';
+
+header {
+    background-image: url('../assets/hero.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .shade {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 1em 1.5em 2em;
+        background-color: rgba(226, 230, 230, 0.527);
+    }
+    ul {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 80ch;
+        list-style: none;
+        padding-left: 0;
+        a {
+            color: variables.$primary-text;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+            transform: scale(1.2);
+        }
+        button {
+            display: block;
+            margin: auto;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
+            border: 1px solid variables.$primary-text;
+        }
+        button:hover {
+            background-color: variables.$primary-text;
+            color: white;
+        }
+    }
+    .loged-in {
+        justify-content: space-between;
+    }
+    h1 {
+        font-family: "Rouge Script", serif;
+        font-size: 3em;
+        text-align: center;
+        
+    }
+}
+
+
+
+@media (min-width: 600px) {
+
+}

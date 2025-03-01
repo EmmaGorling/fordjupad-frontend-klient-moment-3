@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Post } from '../types/post.types';
 import { useAuth } from "../context/authContext";
 const apiUrl = import.meta.env.VITE_API_URL;
+import './PostPage.scss'
 
 
 const PostPage = () => {
@@ -42,40 +43,48 @@ const PostPage = () => {
     
 
     return (
-        <div>
+        <div className="single-post-container">
             {
-                error && <p>{error}</p>
+                error && <p className="erroMsg">{error}</p>
             }
             {
-                loading && <p>Laddar...</p>
+                loading && <p className="loading">Laddar...</p>
             }
             {
                 post && (
                 <article>
                     <h2>{post.title}</h2>
                     <p>{post.content}</p>
-                    <span>
-                        {new Date(post.createdAt).toLocaleString('sv-SE', {
-                            year: 'numeric',
-                            month: '2-digit',
-                            day: '2-digit',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                        })}
-                    </span>
-                    {
-                        post.updatedAt && 
-                            <span>
-                                Uppdaterad:
-                                {new Date(post.createdAt).toLocaleString('sv-SE', {
-                                    year: 'numeric',
-                                    month: '2-digit',
-                                    day: '2-digit',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                })}
+                    <div className='date-container'>
+                        <span className='published'>
+                            Publicerad:
+                            <span className='date'>
+                            {new Date(post.createdAt).toLocaleString('sv-SE', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                            })}
                             </span>
-                    }
+                        </span>
+                        
+                        {
+                            post.updatedAt && 
+                                <span className='updated'>
+                                    Uppdaterad:
+                                    <span className='date'>
+                                    {new Date(post.updatedAt).toLocaleString('sv-SE', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                    })}
+                                    </span>
+                                </span>
+                        }
+                    </div>
                     {user && <button onClick={handleEdit}>Redigera inlägg</button>}
                 </article>
             )}

@@ -71,26 +71,33 @@ const EditPostPage = () => {
         <div>
             <h2>Redigera inlägg</h2>
             <form onSubmit={handleUpdate}>
-                <label htmlFor="title">Titel</label>
-                <input 
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-                <label htmlFor="content">Text</label>
-                <textarea 
-                    name="content" 
-                    id="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                >
-                </textarea>
-                <button type="submit">Spara ändringar</button>
-                <button type="button" onClick={handleCancel}>Avbryt</button>
-                <button type="button" onClick={handleDelete}>Radera</button>
+                <div className="form-section">
+                    <label htmlFor="title">Titel</label>
+                    <input 
+                        type="text"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
+                <div className="form-section">
+                    <label htmlFor="content">Text</label>
+                    <textarea 
+                        name="content" 
+                        id="content"
+                        rows={12}
+                        value={content}
+                        onChange={(e) => setContent(e.target.value)}
+                    >
+                    </textarea>
+                </div>
                 {
-                    error && <p>{error}</p>
+                    error && <p className="errorMsg">{error}</p>
                 }
+                <div>
+                    <button type="submit">Spara ändringar</button>
+                    <button className="abort-btn" type="button" onClick={handleCancel}>Avbryt</button>
+                    <button className="delete-btn" type="button" onClick={handleDelete}>Radera</button>
+                </div>
             </form>
         </div>
     )

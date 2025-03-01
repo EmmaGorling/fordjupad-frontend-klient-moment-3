@@ -1,7 +1,6 @@
 import { useState } from "react"
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
 const CreatePostPage = () => {
     // States
     const [title, setTitle] = useState("");
@@ -46,28 +45,31 @@ const CreatePostPage = () => {
         <div className="create-form-container" >
             <h2>Skapa inlägg</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="title">Titel</label>
-                <input 
-                    type="text"
-                    id ="title"
-                    value = {title}
-                    onChange={(e) => setTitle(e.target.value)}
-                />
-
-                <label htmlFor="content">Text</label>
-                <textarea 
-                    name="content" 
-                    id="content" 
-                    rows={20}
-                    value = {content}
-                    onChange={(e) => setContent(e.target.value)}    
-                >
-                </textarea>
-
-                <button type="submit">Skapa inlägg</button>
+                <div className='form-section'>
+                    <label htmlFor="title">Titel</label>
+                    <input 
+                        type="text"
+                        id ="title"
+                        value = {title}
+                        onChange={(e) => setTitle(e.target.value)}
+                    />
+                </div>
+                <div className='form-section'>
+                    <label htmlFor="content">Text</label>
+                    <textarea 
+                        name="content" 
+                        id="content" 
+                        rows={12}
+                        value = {content}
+                        onChange={(e) => setContent(e.target.value)}    
+                    >
+                    </textarea>
+                </div>
                 {
-                    error && <p>{error}</p>
+                    error && <p className="errorMsg">{error}</p>
                 }
+                <button type="submit">Skapa inlägg</button>
+                
                 {
                     success && <p>{success}</p>
                 }

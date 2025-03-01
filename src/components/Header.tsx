@@ -1,3 +1,4 @@
+import './Header.scss'
 import { NavLink } from "react-router-dom"
 import { useAuth } from "../context/authContext"
 
@@ -9,21 +10,25 @@ const Header = () => {
 
     return (
         <header>
-            <h1>Bloggy</h1>
-            <ul>
-                <li><NavLink to="/">Start</NavLink></li>
-                {
-                    user && <li><NavLink to="/createpost">Skapa inlägg</NavLink></li>
-                }
-                {
-                    user && <li>Inloggad som {user.firstName} {user.lastName}</li>
-                }
-                <li>
+            <div className="shade">
+                <ul className={user ? "loged-in" : ""}>
+                    
                     {
-                        !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout}>Logga ut</button>
+                        user && (
+                            <>
+                                <li><NavLink to="/">Min blogg</NavLink></li>
+                                <li><NavLink to="/createpost">Skapa inlägg</NavLink></li>
+                            </>
+                        )
                     }
-                </li>
-            </ul>
+                    <li>
+                        {
+                            !user ? <NavLink to="/login">Logga in</NavLink> : <button onClick={logout}>Logga ut</button>
+                        }
+                    </li>
+                </ul>
+                <h1>Emma Görling</h1>
+            </div>
         </header>
     )
 }

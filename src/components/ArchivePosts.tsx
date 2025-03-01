@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_API_URL
 import { Post } from '../types/post.types'
+import './ArchivePosts.scss'
 
 
 const ArchivePosts = () => {
@@ -25,7 +26,7 @@ const ArchivePosts = () => {
                 }
                 const data = await res.json();
 
-                const olderPosts = data.slice(10);
+                const olderPosts = data.slice(6);
     
                 setPosts(olderPosts);
                 setLoading(false);
@@ -37,11 +38,11 @@ const ArchivePosts = () => {
         }
 
     return (
-        <div>
+        <div className='archive-container'>
             <section>
                 <h3>Äldre inlägg</h3>
-                { error && <p>{error}</p>}
-                { loading && <p>Laddar arkiv...</p>}
+                { error && <p className='errorMsg'>{error}</p>}
+                { loading && <p className='loading'>Laddar arkiv...</p>}
                 {posts.length > 0 && 
                     posts.map((post) => (
                         <Link to={`/post/${post._id}`} key={post._id}>

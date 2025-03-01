@@ -1,0 +1,39 @@
+@use '../variables';
+
+.single-post-container {
+    max-width: 60ch;
+    margin: auto;
+    article {
+        p {
+            margin: 2em auto;
+        }
+        .date-container {
+            display: flex;
+            flex-direction: column;
+
+        }
+        .published, .updated {
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-top: 0.5em;
+        }
+        .updated {
+            color: grey;
+        }
+        .date {
+            margin-left: 1ch;
+        }
+    }
+    button {
+        display: block;
+        margin: 2em auto;
+        border: 1px solid variables.$primary-text;
+        border-radius: 5px;
+        line-height: 1.8em;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    button:hover {
+        background-color: variables.$primary-text;
+        color: white;
+    }
+}

@@ -1,0 +1,49 @@
+@use '../variables';
+
+.recent {
+    max-width: 60ch;
+    margin: auto;
+
+    a {
+        color: variables.$primary-text;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    article {
+        margin-bottom: 4em;
+        padding-bottom: 1em;
+        border-bottom: 1px solid variables.$primary-text;
+        h3 {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+        
+        .date-container {
+            display: flex;
+            flex-direction: column;
+
+        }
+        .published, .updated {
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-top: 0.5em;
+        }
+        .updated {
+            color: grey;
+        }
+        .date {
+            margin-left: 1ch;
+        }
+    }
+}
+
+@media (min-width:900px) {
+    .recent {
+        margin: 0;
+    }
+    
+
+}
