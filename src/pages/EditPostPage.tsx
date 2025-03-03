@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-const apiUrl = import.meta.env.VITE_API_URL
+const apiUrl = import.meta.env.VITE_API_URL;
+import './EditPostPage.scss';
 
 const EditPostPage = () => {
     const { id } = useParams();
@@ -93,10 +94,11 @@ const EditPostPage = () => {
                 {
                     error && <p className="errorMsg">{error}</p>
                 }
-                <div>
-                    <button type="submit">Spara ändringar</button>
-                    <button className="abort-btn" type="button" onClick={handleCancel}>Avbryt</button>
+                <div className="button-container">
+                    <button className="submit" type="submit">Spara ändringar</button>
                     <button className="delete-btn" type="button" onClick={handleDelete}>Radera</button>
+                    <button className="abort-btn" type="button" onClick={handleCancel}>Avbryt</button>
+                    
                 </div>
             </form>
         </div>

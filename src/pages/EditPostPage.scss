@@ -1,0 +1,16 @@
+@use '../variables';
+
+form {
+    .button-container {
+        display: flex;
+        padding: 1em 0;
+        .submit {
+            background-color: variables.$green-bg;
+            border: 1px solid variables.$green-border;
+        }
+        .delete-btn {
+            background-color: variables.$error-bg;
+            border: 1px solid variables.$error-border;
+        }
+    }
+}
