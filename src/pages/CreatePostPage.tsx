@@ -71,7 +71,7 @@ const CreatePostPage = () => {
                 <button type="submit">Skapa inlägg</button>
                 
                 {
-                    success && <p>{success}</p>
+                    success && <p className="sucsessMsg">{success}</p>
                 }
             </form>
         </div>
